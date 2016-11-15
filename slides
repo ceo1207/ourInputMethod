@@ -1,0 +1,21 @@
+维特比算法
+涉及变量：
+pinYin是保存拼音的list，wordLists保存拼音对应的汉字list，一个拼音通常对应多个汉字
+函数说明：
+getStartPro(word)读取word在一个词语首部的概率的对数
+getEmission(word)读取word在对应pinYin的发射概率的对数
+getTransition(preWord,nextWord)读取nextWord在preWord之后的概率的对数
+算法主要内容：
+维护probability矩阵（二维数组）和index矩阵
+流程：
+1 初始化概率数组
+将probability矩阵的第一行设为wordLists第一行汉字对应的初始概率
+P(word) = getStartPro(word)+getEmission(word);
+2 递推计算概率和索引矩阵
+计算前一个汉字到达当前汉字的最大概率
+MaxPro = Max(pro(preWord)+ getTransition(preWord,nextWord))
+Pro(preWord)即之前保存在probability中概率对数
+则当前汉字的概率等于MaxPro+ getEmission(word)
+然后在index矩阵的相应位置，记下产生maxPro的汉字的序号。
+3 回溯。取概率矩阵最后一行概率最大的汉字作为输出序列的最后一个汉字，然后用保存在index中的数据回溯出前一个汉字。由此得到全部的序列。
+
