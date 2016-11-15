@@ -37,10 +37,10 @@ MF1633019 经伟  	MG1633063 沈佳凯  	MF1633031 糜泽宇
 > 在每个value的字典中，计算频率以及log值，放置到数据库的transition表中
 
 混淆矩阵表(emission)
-> 创建二维字典charPyMap,其中key为汉字，value为该汉字对应的拼音和概率
-> 遍历训练数据集
-> 对于每一个汉字：用pypinyin.pinyin方法得出对应的拼音
-> 将拼音和频数叠加如charPyMap[]中去
+> 创建二维字典charPyMap,其中key为汉字，value为该汉字对应的拼音和概率  
+> 遍历训练数据集  
+> 对于每一个汉字：用pypinyin.pinyin方法得出对应的拼音  
+> 将拼音和频数叠加如charPyMap[]中去  
 > 在每个value的字典中计算频率的log值，放置到数据库的emission表中
 
 viterbi算法
