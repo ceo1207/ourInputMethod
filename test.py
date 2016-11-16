@@ -1,20 +1,16 @@
 #coding=utf-8
 import json
+import sqlite3
 #在sqlite中读取word在一个词语首部的概率
 def getStartPro(word):
-	myCursor.execute("select probability from starting where character==%d" % word);
-	value = myCursor.fetchone();
-	return value[0];
+	return 1;
 #在sqlite中读取word在对应pinYin的发射概率
 def getEmission(word):
-	myCursor.execute("select probability from emission where character==%d" % word);
-	value = myCursor.fetchone();
-	return value[0];
+	return 1;
 #在sqlite中读取nextWord在preWord之后的概率
-def getTransition(preWord,nextWord)
-	myCursor.execute("select probability from transition where previous==%d,behind==%d" % (preWord,nextWord));
-	value = myCursor.fetchone();
-	return value[0];
+def getTransition(preWord,nextWord):
+	return 1;
+
 
 #连接数据库
 myConnect = sqlite3.connect("D:/src/test.db");
@@ -36,7 +32,7 @@ while 1:
 	#拼音对应汉字的字符串
 	for onePin in pinYin:
 		wordLists.append(covertPin[onePin]);
-	#对pro list做初始化
+	#对probability list做初始化
 	oneList = wordLists[0];
 	tmpPro = [];
 	for i1 in range(0,len(oneList)):
@@ -50,20 +46,20 @@ while 1:
 		oneList = wordLists[i1];
 		preList = wordLists[i1-1];
 		prePro = probability[i1-1];
-		print len(oneList);
+		#print len(oneList)
 		#对当前节点的每个汉字做遍历
 		for i2 in range(0,len(oneList)):
 			maxPro = 0;
 			maxIndex = -1;
 			#对前一个节点的每个汉字做概率的遍历
-			for i3 = range(0,len(preList)):
+			for i3 in range(0,len(preList)):
 				temp = getTransition(preList[i3],oneList[i2])+prePro[i3];
 				if maxPro<temp:
 					maxPro = temp;
 					maxIndex = i3;
 			#加上该字的发射概率对数得到该字的概率
 			tmpIndex.append(maxIndex);
-			tmpPro.append(maxPro+getEmission(oneList(i2)));
+			tmpPro.append(maxPro+getEmission(oneList[i2]));
 		index.append(tmpIndex);
 		probability.append(tmpPro)
 	
@@ -86,4 +82,5 @@ while 1:
 		result[length-i1-2] = wordLists[length-i1-2][tmp5]
 		tmp5 = index[length-i1-2][tmp5]
 		
-	print result
+	for tmp in result:
+		print tmp
