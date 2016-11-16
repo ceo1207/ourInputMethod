@@ -1,7 +1,11 @@
 #coding=utf-8
 from Tkinter import * 
 def printkey(event):
-	u2.set(myProcess(u1.get()));
+	tmpRe = myProcess(u1.get())
+	outPut = ''
+	for tmp in tmpRe
+		outPut=outPut+tmp[0]
+	u2.set(outPut);
 	
 top = Tk()
 #绑定对象到Entry
